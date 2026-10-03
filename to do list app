@@ -1,0 +1,61 @@
+def add_task(todo_list, task):
+    todo_list.append({"task": task, "done": False})
+    print(f"Task '{task}' added.")
+
+def delete_task(todo_list, task_index):
+    try:
+        task_index = int(task_index)
+        if 1 <= task_index <= len(todo_list):
+            deleted_task = todo_list.pop(task_index - 1)
+            print(f"Task '{deleted_task['task']}' deleted.")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
+def mark_done(todo_list, task_index):
+    try:
+        task_index = int(task_index)
+        if 1 <= task_index <= len(todo_list):
+            todo_list[task_index - 1]["done"] = True
+            print("Task marked as done.")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
+def view_list(todo_list):
+    if not todo_list:
+        print("No tasks in the to-do list.")
+    else:
+        print("\nTo-Do List:")
+        for index, task in enumerate(todo_list, start=1):
+            status = "Done" if task["done"] else "Not Done"
+            print(f"{index}. {task['task']} - {status}")
+
+def main():
+    todo_list = []
+    while True:
+        print("\nOptions: add | delete | done | view | exit")
+        choice = input("Choose an action: ")
+
+        if choice == "add":
+            task = input("Enter task: ")
+            add_task(todo_list, task)
+        elif choice == "delete":
+            view_list(todo_list)
+            task_index = input("Enter task number to delete: ")
+            delete_task(todo_list, task_index)
+        elif choice == "done":
+            view_list(todo_list)
+            task_index = input("Enter task number to mark as done: ")
+            mark_done(todo_list, task_index)
+        elif choice == "view":
+            view_list(todo_list)
+        elif choice == "exit":
+            break
+        else:
+            print("Invalid input.")
+
+if __name__ == "__main__":
+    main()

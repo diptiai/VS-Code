@@ -1,0 +1,58 @@
+# travel_app.py
+
+# Sample travel destinations
+destinations = [
+    {"name": "Paris", "country": "France", "description": "City of lights and romance."},
+    {"name": "Tokyo", "country": "Japan", "description": "Modern city with ancient temples."},
+    {"name": "New York", "country": "USA", "description": "The city that never sleeps."},
+    {"name": "Bali", "country": "Indonesia", "description": "Beautiful beaches and temples."}
+]
+
+def show_menu():
+    print("\n=== Travel App ===")
+    print("1. View All Destinations")
+    print("2. Search by Country")
+    print("3. Add a Destination")
+    print("4. Exit")
+
+def view_destinations():
+    if not destinations:
+        print("No destinations available.")
+    for i, d in enumerate(destinations, 1):
+        print(f"\n{i}. {d['name']} ({d['country']})")
+        print(f"   Description: {d['description']}")
+
+def search_by_country():
+    country = input("Enter country name: ").strip().lower()
+    results = [d for d in destinations if d['country'].lower() == country]
+    if results:
+        for d in results:
+            print(f"\nDestination: {d['name']}")
+            print(f"Description: {d['description']}")
+    else:
+        print("No destinations found in that country.")
+
+def add_destination():
+    name = input("Enter destination name: ").strip()
+    country = input("Enter country: ").strip()
+    description = input("Enter a short description: ").strip()
+    new_dest = {"name": name, "country": country, "description": description}
+    destinations.append(new_dest)
+    print(f"{name} has been added!")
+
+# Main loop
+while True:
+    show_menu()
+    choice = input("Choose an option (1-4): ")
+
+    if choice == '1':
+        view_destinations()
+    elif choice == '2':
+        search_by_country()
+    elif choice == '3':
+        add_destination()
+    elif choice == '4':
+        print("Thanks for using the Travel App. Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please enter a number between 1 and 4.")
